@@ -5,10 +5,42 @@ GASの大きな特徴は、Google Workspaceサービスとの連携の容易さ�
 ### 4.1 Google SpreadsheetとGAS
 Google Spreadsheetは、GASと最も相性の良いサービスの1つです。スプレッドシートのデータを読み書きしたり、書式を設定したり、チャートを作成したりできます。
 
+スプレッドシートのIDを取得する方法について。
+
+スプレッドシートのIDを取得するには、以下の手順を実行します。
+
+1. Googleスプレッドシートを開く
+2. ブラウザのアドレスバーを確認する
+3. アドレスバーのURLは以下のような形式になっています
+   ```
+   https://docs.google.com/spreadsheets/d/スプレッドシートのID/edit#gid=シートのID
+   ```
+4. `/d/` と `/edit` の間の文字列がスプレッドシートのIDです
+
+例えば、以下のようなURLの場合：
+```
+https://docs.google.com/spreadsheets/d/1ABCdefGHIjklMNOpqrSTUvwxYZabcdefGHIjklMNO/edit#gid=0
+```
+
+スプレッドシートのIDは `1ABCdefGHIjklMNOpqrSTUvwxYZabcdefGHIjklMNO` になります。
+
+このIDをコードの `const spreadsheetId = "スプレッドシートのIDを入力";` の部分に入力してください。
+
+例：
+```javascript
+const spreadsheetId = "1ABCdefGHIjklMNOpqrSTUvwxYZabcdefGHIjklMNO";
+```
+
+これでスプレッドシートのIDを指定して、GASからスプレッドシートを操作できるようになります。
+
+また、スプレッドシートのIDは、スプレッドシートを他のユーザーと共有する際にも使用されます。IDを知っている人は誰でもスプレッドシートにアクセスできるため、機密情報を含むスプレッドシートのIDは安易に共有しないように注意が必要です。
+
+以上、スプレッドシートのIDの取得方法についての詳細説明でした。これを資料に追加することで、読者がスムーズにコードを理解し、実行できるようになるはずです。
+
 #### シートの読み書き
 ```javascript
 function readWriteSheet() {
-  const spreadsheetId = "IDを入力";
+  const spreadsheetId = "スプレッドシートのIDを入力";
   const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
   const sheet = spreadsheet.getSheetByName('シート1');
   const value = sheet.getRange('A1').getValue();
@@ -19,8 +51,10 @@ function readWriteSheet() {
 
 #### 条件付き書式の設定
 ```javascript
-function setConditionalFormatting() {
-  const sheet = SpreadsheetApp.getActiveSheet();
+function setConditionalFormatting(spreadsheetId) {
+  const spreadsheetId = "スプレッドシートのIDを入力";
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  const sheet = spreadsheet.getSheetByName('シート1');
   const range = sheet.getRange("A1:B10");
   const rule = SpreadsheetApp.newConditionalFormatRule()
     .whenNumberGreaterThan(100)
@@ -33,8 +67,10 @@ function setConditionalFormatting() {
 
 #### チャートの作成
 ```javascript
-function createChart() {
-  const sheet = SpreadsheetApp.getActiveSheet();
+function createChart(spreadsheetId) {
+  const spreadsheetId = "スプレッドシートのIDを入力";
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  const sheet = spreadsheet.getSheetByName('シート1');
   const range = sheet.getRange("A1:B10");
   const chart = sheet.newChart()
     .setChartType(Charts.ChartType.BAR)
