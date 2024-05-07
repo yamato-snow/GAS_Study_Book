@@ -57,17 +57,34 @@ function readWriteSheet() {
 
 #### 条件付き書式の設定
 ```javascript
-function setConditionalFormatting(spreadsheetId) {
-  const spreadsheetId = "スプレッドシートのIDを入力";
+function setConditionalFormatting() {
+  const spreadsheetId = "テンプレートのドキュメントID"
   const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
   const sheet = spreadsheet.getSheetByName('シート1');
-  const range = sheet.getRange("A1:B10");
+
+  const lastRow = sheet.getLastRow();
+  const lastColumn = sheet.getLastColumn();
+
+  if (lastRow === 1 && lastColumn === 1 && sheet.getRange(1, 1).getValue() === "") {
+    console.log("データが存在しません。");
+    return;
+  }
+
+  console.log(lastRow);
+  console.log(lastColumn);
+
+  const range = sheet.getRange(1, 1, lastRow, lastColumn);
+  const formula = '=$B1>100';
   const rule = SpreadsheetApp.newConditionalFormatRule()
-    .whenNumberGreaterThan(100)
+    .whenFormulaSatisfied(formula)
     .setBackground("#FF0000")
     .setFontColor("#FFFFFF")
+    .setRanges([range])
     .build();
-  range.setConditionalFormatRules([rule]);
+  
+  const rules = sheet.getConditionalFormatRules();
+  rules.push(rule);
+  sheet.setConditionalFormatRules(rules);
 }
 ```
 
@@ -81,7 +98,7 @@ function setConditionalFormatting(spreadsheetId) {
 
 #### チャートの作成
 ```javascript
-function createChart(spreadsheetId) {
+function createChart() {
   const spreadsheetId = "スプレッドシートのIDを入力";
   const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
   const sheet = spreadsheet.getSheetByName('シート1');
