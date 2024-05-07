@@ -48,6 +48,12 @@ function readWriteSheet() {
   sheet.getRange("B1").setValue("Hello, GAS!");
 }
 ```
+この関数の動作は以下の通りです。
+
+1. スプレッドシートのIDを指定してスプレッドシートを開く
+2. シート1を取得して、A1セルの値を取得してコンソールに出力
+3. B1セルに "Hello, GAS!" という値を設定
+
 
 #### 条件付き書式の設定
 ```javascript
@@ -65,6 +71,14 @@ function setConditionalFormatting(spreadsheetId) {
 }
 ```
 
+この関数の動作は以下の通りです。
+
+1. スプレッドシートのIDを指定してスプレッドシートを開く
+2. シート1を取得して、A1:B10の範囲を取得
+3. 100より大きい数値のセルに赤色の背景と白色の文字色を設定
+
+
+
 #### チャートの作成
 ```javascript
 function createChart(spreadsheetId) {
@@ -81,6 +95,12 @@ function createChart(spreadsheetId) {
 }
 ```
 
+この関数の動作は以下の通りです。
+
+1. スプレッドシートのIDを指定してスプレッドシートを開く
+2. シート1を取得して、A1:B10の範囲を取得
+3. 棒グラフのチャートを作成して、A1セルに挿入
+
 ### 4.2 Google DocsとGAS
 Google DocsもGASと連携して、ドキュメントの作成や編集、差し込み印刷などを行うことができます。
 
@@ -94,6 +114,12 @@ function createAndEditDoc() {
   body.appendParagraph("GASから作成しました。");
 }
 ```
+
+この関数の動作は以下の通りです。
+
+1. 新しいドキュメントを作成
+2. ドキュメントの本文を取得して、テキストと水平線を追加
+
 
 #### 差し込み印刷
 ```javascript
@@ -131,6 +157,12 @@ function createFormAndGetResponses() {
 }
 ```
 
+この関数の動作は以下の通りです。
+
+1. 新しいフォームを作成して、名前のテキスト項目を追加
+2. フォームの回答を取得して、名前の回答をコンソールに出力
+
+
 #### 回答データの処理
 ```javascript
 function processFormResponses() {
@@ -150,6 +182,11 @@ function processFormResponses() {
   });
 }
 ```
+
+この関数の動作は以下の通りです。
+
+1. フォームのIDを指定してフォームを開く
+2. フォームの回答を取得して、スプレッドシートに出力
 
 ### 4.4 練習問題
 1. スプレッドシートのA1:B10の範囲に、ランダムな数値（1から100の間）を入力する関数を作成してください。
