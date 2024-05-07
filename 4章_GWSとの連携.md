@@ -8,8 +8,10 @@ Google Spreadsheetは、GASと最も相性の良いサービスの1つです。�
 #### シートの読み書き
 ```javascript
 function readWriteSheet() {
-  const sheet = SpreadsheetApp.getActiveSheet();
-  const value = sheet.getRange("A1").getValue();
+  const spreadsheetId = "IDを入力";
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  const sheet = spreadsheet.getSheetByName('シート1');
+  const value = sheet.getRange('A1').getValue();
   console.log(value);
   sheet.getRange("B1").setValue("Hello, GAS!");
 }
